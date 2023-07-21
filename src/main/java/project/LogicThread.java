@@ -13,9 +13,9 @@ public class LogicThread extends JFrame implements Runnable {
 
     @Override
     public void run() {
-//        while (true) {
+        while (true) {
             logic();
-//        }
+        }
     }
 
     private void logic() {

@@ -23,7 +23,7 @@ public class Options extends JFrame {
     private final int fw = w / MAX_DIST + 1;
     private final int fh = h / MAX_DIST + 1;
 
-    private final ArrayList<Link> links = new ArrayList<>();
+    volatile public ArrayList<Link> links = new ArrayList<>();
     private final float LINK_FORCE = -0.015f;
     volatile public int frame = 0;
 
@@ -32,21 +32,24 @@ public class Options extends JFrame {
     // array for dividing scene into parts to reduce complexity
     private final Field[][] fields = new Field[fw][fh];
     private final float[][] COUPLING = {
-            {1, 1, -1},
-            {1, 1, 1},
-            {1, 1, 1}
+            {1, 1, -1, 0},
+            {1, 1, 1, 0},
+            {1, 1, 1, 0},
+            {0, 0, 0, 0}
     };
 
     volatile private int[] LINKS = {
             1,
             3,
-            2
+            2,
+            4
     };
 
     private final float[][] LINKS_POSSIBLE = {
-            {0, 1, 1},
-            {1, 2, 1},
-            {1, 1, 2}
+            {0, 1, 1, 0},
+            {1, 2, 1, 0},
+            {1, 1, 2, 0},
+            {0, 0, 0, 0}
     };
 
     public Options() {
@@ -56,7 +59,7 @@ public class Options extends JFrame {
             }
         }
         for (int i = 0; i < NODE_COUNT; i++) {
-            add((int)(Math.random() * COUPLING.length), (float)(Math.random() * w), (float)(Math.random() * h));
+            add((int) (Math.random() * COUPLING.length), (float) (Math.random() * w), (float) (Math.random() * h));
         }
         this.setSize(w + 16, h + 38);
         this.setVisible(true);
@@ -64,6 +67,7 @@ public class Options extends JFrame {
         this.setLocation(50, 50);
         this.add(new JLabel(new ImageIcon(img)));
     }
+
     private Particle add(int type, float x, float y) {
         Particle p = new Particle(ParticleType.values()[type], x, y);
         fields[(int) (p.x / MAX_DIST)][(int) (p.y / MAX_DIST)].particles.add(p);

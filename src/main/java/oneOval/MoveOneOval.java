@@ -34,6 +34,8 @@ public class MoveOneOval extends JFrame implements Runnable {
 
     @Override
     public void run() {
+        Thread thread = new Thread(new LogicThread(options));
+        thread.start();
         while (true) {
             this.repaint();
         }
@@ -41,8 +43,7 @@ public class MoveOneOval extends JFrame implements Runnable {
 
     public void paint(Graphics g) {
         drawOneParticle();
-        Thread thread = new Thread(new LogicThread(options));
-        thread.start();
+
         ((Graphics2D) g).drawImage(options.getImg(), null, 8, 30);
         options.frame++;
     }

@@ -5,6 +5,7 @@ import java.awt.*;
 public enum ParticleType {
     RED(1, new Color(250, 20, 20)),
     YELLOW(2, new Color(200, 140, 100)),
+    WHITE(4, new Color(245, 244, 244)),
     BLUE(3, new Color(80, 170, 140));
 
     public final int type;

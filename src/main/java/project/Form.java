@@ -9,28 +9,28 @@ public class Form extends JFrame implements Runnable {
 
 
     public Form() {
-//        for (int i = 0; i < options.getFw(); i++) {
-//            for (int j = 0; j < options.getFh(); j++) {
-//                options.getFields()[i][j] = new Field();
-//            }
-//        }
-//        // put particles randomly
-//        for (int i = 0; i < options.getNODE_COUNT(); i++) {
-//            add((int)(Math.random() * options.getCOUPLING().length), (float)(Math.random() * options.getW()), (float)(Math.random() * options.getH()));
-//        }
-//
-//        this.setSize(options.getW() + 16, options.getH() + 38);
-//        this.setVisible(true);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.setLocation(50, 50);
-//        this.add(new JLabel(new ImageIcon(options.getImg())));
+        for (int i = 0; i < options.getFw(); i++) {
+            for (int j = 0; j < options.getFh(); j++) {
+                options.getFields()[i][j] = new Field();
+            }
+        }
+        // put particles randomly
+        for (int i = 0; i < options.getNODE_COUNT(); i++) {
+            add((int)(Math.random() * options.getCOUPLING().length), (float)(Math.random() * options.getW()), (float)(Math.random() * options.getH()));
+        }
+
+        this.setSize(options.getW() + 16, options.getH() + 38);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocation(50, 50);
+        this.add(new JLabel(new ImageIcon(options.getImg())));
     }
 
-//    private Particle add(int type, float x, float y) {
-//        Particle p = new Particle(ParticleType.values()[type], x, y);
-//        options.getFields()[(int) (p.x / options.getMAX_DIST())][(int) (p.y / options.getMAX_DIST())].particles.add(p);
-//        return p;
-//    }
+    private Particle add(int type, float x, float y) {
+        Particle p = new Particle(ParticleType.values()[type], x, y);
+        options.getFields()[(int) (p.x / options.getMAX_DIST())][(int) (p.y / options.getMAX_DIST())].particles.add(p);
+        return p;
+    }
 
     @Override
     public void run() {
@@ -64,7 +64,7 @@ public class Form extends JFrame implements Runnable {
             }
         }
         g2.setColor(options.getLINK());
-        for (Link link: options.getLinks()) {
+        for (Link link: options.links) {
             g2.drawLine((int) link.a.x, (int) link.a.y, (int) link.b.x, (int) link.b.y);
         }
     }
