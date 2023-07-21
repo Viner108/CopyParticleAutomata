@@ -13,11 +13,9 @@ public class LogicThread extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            for (int i = 0; i < options.getSKIP_FRAMES(); i++) {
-                logic();
-            }
-        }
+//        while (true) {
+            logic();
+//        }
     }
 
     private void logic() {
@@ -169,11 +167,11 @@ public class LogicThread extends JFrame implements Runnable {
     private float applyForce(Particle a, Particle b) {
         float d2 = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
         boolean canLink = false;
-        if(d2 < options.getMAX_DIST2()) {
+        if (d2 < options.getMAX_DIST2()) {
             float dA = options.getCOUPLING()[a.getType()][b.getType()] / d2;
             float dB = options.getCOUPLING()[b.getType()][a.getType()] / d2;
             if (a.links < options.getLINKS()[a.getType()] && b.links < options.getLINKS()[b.getType()]) {
-                if(d2 < options.getMAX_DIST2() / 4) {
+                if (d2 < options.getMAX_DIST2() / 4) {
                     if (!a.bonds.contains(b) && !b.bonds.contains(a)) {
                         int typeCountA = 0;
                         for (Particle p : a.bonds) {
@@ -188,25 +186,24 @@ public class LogicThread extends JFrame implements Runnable {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 if (!a.bonds.contains(b) && !b.bonds.contains(a)) {
                     dA = 1 / d2;
                     dB = 1 / d2;
                 }
             }
             double angle = Math.atan2(a.y - b.y, a.x - b.x);
-            if(d2 < 1) d2 = 1;
-            if(d2 < options.getNODE_RADIUS() * options.getNODE_RADIUS() * 4) {
+            if (d2 < 1) d2 = 1;
+            if (d2 < options.getNODE_RADIUS() * options.getNODE_RADIUS() * 4) {
                 dA = 1 / d2;
                 dB = 1 / d2;
             }
-            a.sx += (float)Math.cos(angle) * dA * options.getSPEED();
-            a.sy += (float)Math.sin(angle) * dA * options.getSPEED();
-            b.sx -= (float)Math.cos(angle) * dB * options.getSPEED();
-            b.sy -= (float)Math.sin(angle) * dB * options.getSPEED();
+            a.sx += (float) Math.cos(angle) * dA * options.getSPEED();
+            a.sy += (float) Math.sin(angle) * dA * options.getSPEED();
+            b.sx -= (float) Math.cos(angle) * dB * options.getSPEED();
+            b.sy -= (float) Math.sin(angle) * dB * options.getSPEED();
         }
-        if(canLink) return d2;
+        if (canLink) return d2;
         return -1;
     }
 }
